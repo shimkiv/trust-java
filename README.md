@@ -4,6 +4,6 @@
 [![MIT License](http://img.shields.io/badge/license-MIT-green.svg)](https://github.com/shimkiv/trust-java/blob/master/LICENSE)
 ![Free](https://img.shields.io/badge/free-open--source-green.svg)
 
-# TRUST = Test Results Verification Framework for Java
+# TRUST - Test Results Verification Framework for Java
 
 TBD
