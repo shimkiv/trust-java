@@ -1,19 +1,5 @@
-/*
- * All materials herein: Copyright (c) 2000-2017 Serhii Shymkiv. All Rights Reserved.
- *
- * These materials are owned by Serhii Shymkiv and are protected by copyright laws
- * and international copyright treaties, as well as other intellectual property laws
- * and treaties.
- *
- * All right, title and interest in the copyright, confidential information,
- * patents, design rights and all other intellectual property rights of
- * whatsoever nature in and to these materials are and shall remain the sole
- * and exclusive property of Serhii Shymkiv.
- */
-
 package com.shimkiv.trust;
 
-import com.codeborne.selenide.SelenideElement;
 import com.shimkiv.trust.entities.verification.VerificationEntities;
 import com.shimkiv.trust.enums.VerificationType;
 import org.apache.commons.lang3.StringUtils;
@@ -24,13 +10,11 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.switchTo;
-import static com.shimkiv.trust.common.CommonUtils.*;
+import static com.shimkiv.trust.common.CommonUtils.collectionIsNotEmpty;
 import static com.shimkiv.trust.config.TrustConfig.*;
-import static com.shimkiv.trust.enums.VerificationType.*;
+import static com.shimkiv.trust.enums.VerificationType.API_RESPONSE;
+import static com.shimkiv.trust.enums.VerificationType.getVerificationType;
 import static com.shimkiv.trust.evaluation.EvaluationUtils.*;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
  * Verification Utils
@@ -46,71 +30,6 @@ public class VerificationUtils {
 
     // Prevents instantiation
     private VerificationUtils() {}
-
-    /**
-     * Performs UI alert verification
-     *
-     * @param verificationEntities {@link VerificationEntities}
-     */
-    public static void performUiAlertVerification(VerificationEntities
-                                                          verificationEntities) {
-        LOG.info("About to verify the UI alert ...");
-
-        assertThat(alertIsPresent()).
-                isTrue();
-
-        Map<String, String> testResults =
-                new HashMap<>();
-
-        testResults.put(
-                ALERT_MSG_TPL,
-                switchTo().
-                        alert().
-                        getText());
-
-        verifyTestResults(
-                testResults,
-                verificationEntities.
-                        getVerificationEntity(
-                                UI_ALERT).
-                        getVerificationRules());
-
-        if(ALERTS_AUTO_CONFIRM) {
-            confirmAlertQuietly();
-        }
-    }
-
-    /**
-     * Performs UI error verification
-     *
-     * @param verificationEntities {@link VerificationEntities}
-     * @param errorContainerLabel The displayed label of the error container
-     */
-    public static void performUiErrorVerification(VerificationEntities
-                                                          verificationEntities,
-                                                  String errorContainerLabel) {
-        LOG.info("About to verify the UI error ...");
-
-        SelenideElement errorContainer =
-                getParentContainer(
-                        errorContainerLabel);
-        Map<String, String> testResults =
-                new HashMap<>();
-
-        testResults.put(
-                ERROR_MSG_TPL,
-                errorContainer.
-                        getText());
-
-        errorContainer.
-                shouldBe(visible);
-        verifyTestResults(
-                testResults,
-                verificationEntities.
-                        getVerificationEntity(
-                                UI_ERROR).
-                        getVerificationRules());
-    }
 
     /**
      * Generates {@link VerificationEntities} by provided data
@@ -193,10 +112,16 @@ public class VerificationUtils {
                 API_RESPONSE);
     }
 
-    private static void verifyTestResults(Map<String, String>
-                                                  testResults,
-                                          List<String>
-                                                  evalExpressions) {
+    /**
+     * Performs test results verification
+     *
+     * @param testResults {@link Map} of test results
+     * @param evalExpressions {@link List} of evaluation expressions
+     */
+    public static void verifyTestResults(Map<String, String>
+                                                 testResults,
+                                         List<String>
+                                                 evalExpressions) {
         try(AutoCloseableSoftAssertions softly =
                     new AutoCloseableSoftAssertions()) {
             evalExpressions.

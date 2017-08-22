@@ -6,11 +6,11 @@
 
     <groupId>com.shimkiv</groupId>
     <artifactId>trust</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <packaging>jar</packaging>
 
     <name>TRUST</name>
-    <description>TRUST - Test Results Verification Framework for Java</description>
+    <description>TRUST - Test Results Verification library for Java</description>
     <url>https://github.com/shimkiv/trust-java</url>
     <inceptionYear>2017</inceptionYear>
 
@@ -59,10 +59,10 @@
     </ciManagement>
 
     <properties>
-        <selenide.version>4.5.1</selenide.version>
         <assertj.version>3.8.0</assertj.version>
         <json.path.version>2.4.0</json.path.version>
         <commons.lang.version>3.5</commons.lang.version>
+        <testng.version>6.9.10</testng.version>
 
         <jdk.version>1.8</jdk.version>
 
@@ -97,12 +97,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.codeborne</groupId>
-            <artifactId>selenide</artifactId>
-            <version>${selenide.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
@@ -113,18 +107,19 @@
             <artifactId>json-path</artifactId>
             <version>${json.path.version}</version>
             <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons.lang.version}</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
