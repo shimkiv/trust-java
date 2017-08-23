@@ -10,5 +10,5 @@ public enum VerificationType {
     UI_ALERT,
     UI_ERROR,
     UI_COMMON,
-    API_RESPONSE;
+    API_RESPONSE
 }
