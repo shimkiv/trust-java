@@ -13,7 +13,7 @@ The `TRUST`'s primary goal is to provide the simple way of different test result
 The `TRUST` is based on the user defined `verification rules` which are the subject for further processing by the built-in `JavaScript` engine (the `Nashorn` by default).  
 
 The `verification rules` are represented by the `String` and they consists of the next:
-* [Verification Type](https://github.com/shimkiv/trust-java/blob/master/src/main/java/com/shimkiv/trust/enums/VerificationType.java)
+* `Verification type` (can be any `String` value (please check the list of [predefined](https://github.com/shimkiv/trust-java/blob/master/src/main/java/com/shimkiv/trust/enums/VerificationType.java) types) or `API_RESPONSE`)
 * ':&nbsp;&nbsp;' symbols (note: colon and two spaces (by default), without quotes)
 * `JS` expression(s) which should be evaluated into the `Boolean`'s `TRUE`
     * `JS` expressions should be separated by using the ';&nbsp;&nbsp;' symbols (note: semicolon and two spaces (by default), without quotes)
@@ -25,7 +25,7 @@ The `verification rules` are represented by the `String` and they consists of th
 * Verification rules are processed [softly](http://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html)
 
 
-* Please note that the substituted value(s) of the placeholders/templates will be [normalized](https://www.w3.org/TR/xpath/#function-normalize-space) before use.
+Please note that the substituted value(s) of the placeholders/templates will be [normalized](https://www.w3.org/TR/xpath/#function-normalize-space) before use.
 
 ### Examples
 
@@ -34,14 +34,20 @@ The `verification rules` are represented by the `String` and they consists of th
 // The UI verification rules examples
 //
 
-// Verifies that "Status" field value of the test results page will contain "DONE" text;
+// Verifies that the "Status" field value of the test results page will contain "DONE" text;
 UI_COMMON:  _.includes("${Status:}", "DONE")
 
-// Verifies that error message of the test results page will contain "System Error" or "Was not able to perform requested action" text;
+// Verifies that the error message of the test results page will contain "System Error" or "Was not able to perform requested action" text;
 UI_ERROR:  _.includes("${ERROR_MSG}", "System Error") || _.includes("${ERROR_MSG}", "Was not able to perform requested action")
 
 // Verifies that the alert text will not contain "TestMePlease" text;
 UI_ALERT:  !_.includes("${ALERT_MSG}", "TestMePlease")
+
+// Verifies that the "Amount" field value of the test results page will greater than 0 and less than 100
+MY_RULE:  _.gt(${Amount:}, 0) && _.lt(${Amount:}, 100)
+
+// Together
+UI_COMMON:  _.includes("${Status:}", "DONE")|&|MY_RULE:  _.gt(${Amount:}, 0) && _.lt(${Amount:}, 100)
 
 // 
 // The API verification rules examples
@@ -70,7 +76,7 @@ Suppose also you have the next `verification rule` for this particular test:
 In this case your job will be to parse the `HTML` table into the `key-value` pairs (the `Map`) and invoke the `VerificationUtils.performTestResultsVerification(...)` method with this `Map` as the `testResults` parameter.  
 
 During the `verification` procedure the `${Status:}` template will be substituted with the `DONE` value.    
-After this activities the resulting expression to verify will be `_.includes("DONE", "DONE")` <=> [Lodash syntax](https://lodash.com/) <=> and the current test will be marked as passed since the "DONE" string includes/contains the "DONE" string.
+After this activities the resulting expression to verify will be `_.includes("DONE", "DONE")` <=> [Lodash syntax](https://lodash.com/) + `JS` expression(s) evaluation <=> and the current test will be marked as passed since the "DONE" string includes/contains the "DONE" string.
 
 #### API test results verification
 
@@ -90,7 +96,7 @@ Suppose also you have the next `verification rule` for this particular test:
 `API_RESPONSE:  _.includes("${/Response/description}", "Valid response")`  
 
 So the `/Response/description` `XPath` expression will be evaluated into the `Valid response` value for you and will be substituted instead of the `${/Response/description}` template  
-After this activities the resulting expression to verify will be `_.includes("Valid response", "Valid response")` <=> [Lodash syntax](https://lodash.com/) <=> and the current test will be marked as passed since the "Valid response" string includes/contains the "Valid response" string.
+After this activities the resulting expression to verify will be `_.includes("Valid response", "Valid response")` <=> [Lodash syntax](https://lodash.com/) + `JS` expression(s) evaluation <=> and the current test will be marked as passed since the "Valid response" string includes/contains the "Valid response" string.
 
 ## Basic usage
 
@@ -214,7 +220,8 @@ public class MyVerificationUtils {
                     testResults,                                                              
                     verificationEntities.
                             getVerificationEntity(
-                                    UI_ALERT).
+                                    UI_ALERT.
+                                        name()).
                             getVerificationRules());
     
             if(ALERTS_AUTO_CONFIRM) {
@@ -253,7 +260,8 @@ public class MyVerificationUtils {
                     testResults,
                     verificationEntities.
                             getVerificationEntity(
-                                    UI_ERROR).
+                                    UI_ERROR.
+                                        name()).
                             getVerificationRules());
         }
 }
@@ -271,7 +279,7 @@ You can import the dependency of the `TRUST` into your `pom.xml` from the [Maven
 </dependency>
 ```
 
-* And then please import the following methods into your code:  
+* And then you can import the following methods into your code:  
     * `import static com.shimkiv.trust.VerificationUtils.*;`  
     * Optional (for the API responses validation against the XSD schema):  
         * `import static com.shimkiv.trust.ValidationUtils.*;`

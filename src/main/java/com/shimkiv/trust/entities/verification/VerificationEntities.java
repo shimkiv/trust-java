@@ -1,6 +1,5 @@
 package com.shimkiv.trust.entities.verification;
 
-import com.shimkiv.trust.enums.VerificationType;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -25,13 +24,13 @@ public class VerificationEntities implements Serializable {
         return verificationEntityList;
     }
 
-    public VerificationEntity getVerificationEntity(VerificationType
-                                                            verificationType) {
+    public VerificationEntity getVerificationEntity(String verificationType) {
         for(VerificationEntity verificationEntity :
                 getVerificationEntities()) {
             if(verificationEntity.
                     getVerificationType().
-                    equals(verificationType)) {
+                    equalsIgnoreCase(
+                            verificationType)) {
                 return verificationEntity;
             }
         }
@@ -69,16 +68,15 @@ public class VerificationEntities implements Serializable {
     public static class VerificationEntity implements Serializable {
         private static final long serialVersionUID = 1L;
 
-        private VerificationType verificationType = null;
+        private String verificationType = null;
         private List<String> verificationRules =
                 new ArrayList<>();
 
-        public VerificationType getVerificationType() {
+        public String getVerificationType() {
             return verificationType;
         }
 
-        public VerificationEntity setVerificationType(VerificationType
-                                                              verificationType) {
+        public VerificationEntity setVerificationType(String verificationType) {
             this.verificationType =
                     verificationType;
 
@@ -109,8 +107,7 @@ public class VerificationEntities implements Serializable {
             return "Verification Entity [" +
                     StringUtils.join(
                             new String[] {
-                                    String.valueOf(
-                                            getVerificationType()),
+                                    getVerificationType(),
                                     String.valueOf(
                                             getVerificationRules())
                             }, ',') +

@@ -1,16 +1,3 @@
-/*
- * All materials herein: Copyright (c) 2000-2017 Serhii Shymkiv. All Rights Reserved.
- *
- * These materials are owned by Serhii Shymkiv and are protected by copyright laws
- * and international copyright treaties, as well as other intellectual property laws
- * and treaties.
- *
- * All right, title and interest in the copyright, confidential information,
- * patents, design rights and all other intellectual property rights of
- * whatsoever nature in and to these materials are and shall remain the sole
- * and exclusive property of Serhii Shymkiv.
- */
-
 package com.shimkiv.trust;
 
 import com.shimkiv.trust.entities.verification.VerificationEntities;
@@ -29,6 +16,7 @@ import java.util.logging.Logger;
 
 import static com.shimkiv.trust.ValidationUtils.validateApiResponseAgainstXsd;
 import static com.shimkiv.trust.VerificationUtils.*;
+import static com.shimkiv.trust.config.TrustConfig.VERIFICATION_TYPES_DELIMITER;
 import static com.shimkiv.trust.enums.VerificationType.UI_ALERT;
 import static com.shimkiv.trust.enums.VerificationType.UI_COMMON;
 import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
@@ -92,6 +80,12 @@ public class TrustTest {
                     "!_.includes(\"${SomeField:}\", \"DONE\")";
     private static final String UI_ALERT_RULES =
             "UI_ALERT:  _.includes(\"${ALERT_MSG}\", \"TestMePlease\")";
+    private static final String MY_RULES =
+            "MY_RULE:  _.gt(${Amount:}, 0) && _.lt(${Amount:}, 100)";
+    private static final String COMMON_RULES =
+            UI_COMMON_RULES +
+                    VERIFICATION_TYPES_DELIMITER +
+                    MY_RULES;
     private static final String XML_API_RESPONSE_SUCCESS_RULES =
             "API_RESPONSE:  _.includes(\"${/Response/description}\", \"Valid response\")";
     private static final String JSON_API_RESPONSE_SUCCESS_RULES =
@@ -105,6 +99,8 @@ public class TrustTest {
     public void generateVerificationEntitiesTest() {
         VerificationEntities verificationEntities =
                 generateVerificationEntities(null);
+        LOG.info(verificationEntities.
+                toString());
 
         assertThat(verificationEntities).
                 isNotEqualTo(null);
@@ -113,12 +109,14 @@ public class TrustTest {
                 hasSize(0);
         assertThat(verificationEntities.
                 getVerificationEntity(
-                        UI_COMMON)).
+                        UI_COMMON.name())).
                 isEqualTo(null);
 
         verificationEntities =
                 generateVerificationEntities(
                         UI_COMMON_RULES);
+        LOG.info(verificationEntities.
+                toString());
 
         assertThat(verificationEntities).
                 isNotEqualTo(null);
@@ -127,7 +125,7 @@ public class TrustTest {
                 hasSize(1);
         assertThat(verificationEntities.
                 getVerificationEntity(
-                        UI_COMMON)).
+                        UI_COMMON.name())).
                 isNotEqualTo(null);
     }
 
@@ -137,8 +135,8 @@ public class TrustTest {
                 new HashMap<>();
 
         testResults.
-                put("SomeField:",
-                        "TestMe");
+                put("Amount:",
+                        "10");
         testResults.
                 put("Status:",
                         "DONE");
@@ -147,7 +145,13 @@ public class TrustTest {
                 generateVerificationEntities(
                         UI_COMMON_RULES),
                 testResults,
-                UI_COMMON);
+                UI_COMMON.name());
+
+        performTestResultsVerification(
+                generateVerificationEntities(
+                        COMMON_RULES),
+                testResults,
+                "MY_RULE");
     }
 
     @Test(expectedExceptions = AssertionError.class)
@@ -166,7 +170,7 @@ public class TrustTest {
                 generateVerificationEntities(
                         UI_COMMON_RULES),
                 testResults,
-                UI_COMMON);
+                UI_COMMON.name());
     }
 
     @Test
@@ -216,7 +220,7 @@ public class TrustTest {
                 generateVerificationEntities(
                         UI_ALERT_RULES).
                         getVerificationEntity(
-                                UI_ALERT).
+                                UI_ALERT.name()).
                         getVerificationRules());
     }
 
@@ -234,7 +238,7 @@ public class TrustTest {
                 generateVerificationEntities(
                         UI_ALERT_RULES).
                         getVerificationEntity(
-                                UI_ALERT).
+                                UI_ALERT.name()).
                         getVerificationRules());
     }
 

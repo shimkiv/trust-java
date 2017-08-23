@@ -1,7 +1,6 @@
 package com.shimkiv.trust;
 
 import com.shimkiv.trust.entities.verification.VerificationEntities;
-import com.shimkiv.trust.enums.VerificationType;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
@@ -13,7 +12,6 @@ import java.util.stream.Collectors;
 import static com.shimkiv.trust.common.CommonUtils.collectionIsNotEmpty;
 import static com.shimkiv.trust.config.TrustConfig.*;
 import static com.shimkiv.trust.enums.VerificationType.API_RESPONSE;
-import static com.shimkiv.trust.enums.VerificationType.getVerificationType;
 import static com.shimkiv.trust.evaluation.EvaluationUtils.*;
 
 /**
@@ -66,14 +64,13 @@ public class VerificationUtils {
      *
      * @param verificationEntities {@link VerificationEntities}
      * @param testResults {@link Map} of test results
-     * @param verificationType {@link VerificationType}
+     * @param verificationType The type of verification rules
      */
     public static void performTestResultsVerification(VerificationEntities
                                                               verificationEntities,
                                                       Map<String, String>
                                                               testResults,
-                                                      VerificationType
-                                                              verificationType) {
+                                                      String verificationType) {
         if(verificationEntities != null) {
             VerificationEntities.VerificationEntity verificationEntity =
                     verificationEntities.
@@ -109,7 +106,8 @@ public class VerificationUtils {
                         apiResponseContentType,
                         getApiEvalExpressions(
                                 verificationEntities)),
-                API_RESPONSE);
+                API_RESPONSE.
+                        name());
     }
 
     /**
@@ -167,16 +165,15 @@ public class VerificationUtils {
             generateVerificationEntity(String[] verificationRules) {
         if(verificationRules != null &&
                 verificationRules.length == 2 &&
-                getVerificationType(
-                        verificationRules[FIRST_ELEMENT]) != null &&
-                StringUtils.isNotBlank(
-                        verificationRules[SECOND_ELEMENT])) {
+                StringUtils.
+                        isNoneBlank(
+                                verificationRules[FIRST_ELEMENT],
+                                verificationRules[SECOND_ELEMENT])) {
             VerificationEntities.VerificationEntity verificationEntity =
                     new VerificationEntities.
                             VerificationEntity().
                             setVerificationType(
-                                    getVerificationType(
-                                            verificationRules[FIRST_ELEMENT]));
+                                    verificationRules[FIRST_ELEMENT]);
 
             for(String verificationRule :
                     verificationRules[SECOND_ELEMENT].
@@ -244,7 +241,8 @@ public class VerificationUtils {
         VerificationEntities.VerificationEntity verificationEntity =
                 verificationEntities.
                         getVerificationEntity(
-                                API_RESPONSE);
+                                API_RESPONSE.
+                                        name());
 
         if(verificationEntity != null) {
             verificationEntity.
