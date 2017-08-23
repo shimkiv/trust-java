@@ -1,6 +1,6 @@
 === 0.3.0 (released 23.08.2017)
-* General methods now accept the `String` type instead of the `VerificationType` as corresponding parameter.
-* Adjusted copyright;
+* General methods now accept the `String` type instead of the `VerificationType` as corresponding parameter;
+* Adjusted copyright.
 
 === 0.2.0 (released 22.08.2017)
 * README content;
