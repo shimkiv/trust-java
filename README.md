@@ -43,7 +43,7 @@ UI_ERROR:  _.includes("${ERROR_MSG}", "System Error") || _.includes("${ERROR_MSG
 // Verifies that the alert text will not contain "TestMePlease" text;
 UI_ALERT:  !_.includes("${ALERT_MSG}", "TestMePlease")
 
-// Verifies that the "Amount" field value of the test results page will greater than 0 and less than 100
+// Verifies that the "Amount" field value of the test results page will be greater than 0 and less than 100
 MY_RULE:  _.gt(${Amount:}, 0) && _.lt(${Amount:}, 100)
 
 // Together
