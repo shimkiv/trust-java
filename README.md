@@ -20,7 +20,7 @@ The `verification rules` are represented by the `String` and they consists of th
     * `JS` expressions are able to utilize the [Lodash](https://lodash.com/) `JS` library (by default) extra functionality
     * `JS` expressions should contain placeholders/templates (depending on chosen Verification Type) which will be substituted with the test result values during the expressions evaluation
         * For the `UI` tests the placeholders/templates are represented by the labels on the page of the test results, value of which you want to use in the `JS` expression
-        * For the `API` tests the placeholders/templates are represented by the [XPath](https://www.w3.org/TR/xpath/) / [JSONPath](http://goessner.net/articles/JsonPath/) | [JSONPath](https://github.com/json-path/JsonPath) expressions
+        * For the `API` tests the placeholders/templates are represented by the [XPath](https://www.w3.org/TR/xpath/) / [JSONPath](http://goessner.net/articles/JsonPath/), [JSONPath](https://github.com/json-path/JsonPath) expressions
 * Verification Types should be separated by using the `|&|` symbols
 * Verification rules are processed [softly](http://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html)
 
