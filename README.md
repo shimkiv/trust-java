@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/shimkiv/trust-java.svg?branch=master)](https://travis-ci.org/shimkiv/trust-java)
 [![Coverage Status](https://coveralls.io/repos/github/shimkiv/trust-java/badge.svg?branch=master)](https://coveralls.io/github/shimkiv/trust-java?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.shimkiv/trust-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.shimkiv/trust-java)
-[![MIT License](http://img.shields.io/badge/license-MIT-green.svg)](https://github.com/shimkiv/trust-java/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/shimkiv/trust-java/blob/master/LICENSE)
 ![Free](https://img.shields.io/badge/free-open--source-green.svg)
 
 # TRUST - Test Results Verification library for Java
@@ -22,7 +22,7 @@ The `verification rules` are represented by the `String` and they consists of th
         * For the `UI` tests the placeholders/templates are represented by the labels on the page of the test results, value of which you want to use in the `JS` expression
         * For the `API` tests the placeholders/templates are represented by the [XPath](https://www.w3.org/TR/xpath/) / [JSONPath](http://goessner.net/articles/JsonPath/), [JSONPath](https://github.com/json-path/JsonPath) expressions
 * Verification Types should be separated by using the `|&|` symbols
-* Verification rules are processed [softly](http://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html)
+* Verification rules are processed [softly](https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html)
 
 
 Please note that the substituted value(s) of the placeholders/templates will be [normalized](https://www.w3.org/TR/xpath/#function-normalize-space) before use.
@@ -302,4 +302,4 @@ mvn clean install
 `TRUST` was originally designed and developed by [Serhii Shymkiv](mailto:sergey@shimkiv.com) in 2017
 
 ## License
-`TRUST` is open-source project and distributed under the [MIT](http://choosealicense.com/licenses/mit/) license
+`TRUST` is open-source project and distributed under the [MIT](https://choosealicense.com/licenses/mit/) license
