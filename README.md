@@ -26,7 +26,10 @@ The `verification rules` are represented by the `String` and they consists of th
 * Verification rules are processed [softly](https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html)
 
 
-Please note that the substituted value(s) of the placeholders/templates will be [normalized](https://www.w3.org/TR/xpath/#function-normalize-space) before use.
+Please note that the substituted value(s) of the placeholders/templates will be [normalized](https://www.w3.org/TR/xpath/#function-normalize-space) before use.  
+
+
+You can override the defaults by using corresponding system properties. Please refer to the [TrustConfig](https://github.com/shimkiv/trust-java/blob/master/src/main/java/com/shimkiv/trust/config/TrustConfig.java) file (the `TRUST settings` section).
 
 ### Examples
 
