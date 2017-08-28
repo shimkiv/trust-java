@@ -130,7 +130,7 @@ import static com.shimkiv.trust.VerificationUtils.*;
 
 public class MyApiTests {
         @Test
-        public void responseApiTest(int testDataIndex,
+        public void apiResponseTest(int testDataIndex,
                                     Map<String, String> testData) {
             String httpResponsePayload;
             String httpResponseContentType;
