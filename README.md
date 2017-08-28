@@ -271,7 +271,7 @@ public class MyVerificationUtils {
 }
 ```
 
-## Usage with Maven
+## Usage with Maven (Not ready yet)
 
 You can import the dependency of the `TRUST` into your `pom.xml` from the [Maven Central](https://maven-badges.herokuapp.com/maven-central/com.shimkiv/trust-java) repository:
 
