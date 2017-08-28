@@ -11,16 +11,24 @@ The `TRUST`'s primary goal is to provide the simple way of different test result
 
 ## General description
 
-The `TRUST` is based on the user defined `verification rules` which are the subject for further processing by the built-in `JavaScript` engine (the `Nashorn` by default).  
+Usually during or at the end of some test scenario you want to verify that the application under the tests works as expected. 
+Sometimes it is enough to use simple assertions chain but sometimes you have to implement the complex verification logic in order to check the test scenario(s) results.  
+And this is the exact that stage where the `TRUST` might be useful since it brings some benefits:
+* Unified test results verification approach for different testing types (e.g. `UI`, `API`)
+* No need in sources recompilation after the `verification rules` updates (unless you store these rules inside the compilation units)
+* Simple yet powerful `verification rules` specification (anyone with the basic knowledge of the [JS comparison and logical operators](https://www.w3schools.com/js/js_comparisons.asp) can write these rules)
+* `XPath` and `JSONPath` selectors support (for extracting the `API` response nodes value and using them during the further verification stages)
 
-The `verification rules` are represented by the `String` and they consists of the next:
+As it was mentioned above, the `TRUST` is based on the user defined `verification rules` which are the subject for the further processing by the built-in `JavaScript` engine (the `Nashorn` by default).  
+
+The `verification rules` are represented by the `String` and they consist of the following:
 * `Verification type` (can be any `String` value (please check the list of [predefined](https://github.com/shimkiv/trust-java/blob/master/src/main/java/com/shimkiv/trust/enums/VerificationType.java) types) or `API_RESPONSE`)
 * ':&nbsp;&nbsp;' symbols (note: colon and two spaces (by default), without quotes)
 * `JS` expression(s) which should be evaluated into the `Boolean`'s `TRUE`
     * `JS` expressions should be separated by using the ';&nbsp;&nbsp;' symbols (note: semicolon and two spaces (by default), without quotes)
     * `JS` expressions are able to utilize the [Lodash](https://lodash.com/) `JS` library (by default) extra functionality
     * `JS` expressions should contain placeholders/templates (depending on chosen Verification Type) which will be substituted with the test result values during the expressions evaluation
-        * For the `UI` tests the placeholders/templates are represented by the labels on the page of the test results, value of which you want to use in the `JS` expression
+        * For the `UI` tests the placeholders/templates are represented by the entities on the page of the test results, value of which you want to use in the `JS` expression
         * For the `API` tests the placeholders/templates are represented by the [XPath](https://www.w3.org/TR/xpath/) / [JSONPath](http://goessner.net/articles/JsonPath/), [JSONPath](https://github.com/json-path/JsonPath) expressions
 * Verification Types should be separated by using the `|&|` symbols
 * Verification rules are processed [softly](https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html)
