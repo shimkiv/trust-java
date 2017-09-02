@@ -16,8 +16,8 @@ Sometimes it is enough to use simple assertions chain but sometimes you have to 
 And this is the exact that stage where the `TRUST` might be useful since it brings some benefits:
 * Unified test results verification approach for different testing types (e.g. `UI`, `API`)
 * No need in sources recompilation after the `verification rules` updates (unless you store these rules inside the compilation units)
-* Simple yet powerful `verification rules` specification (anyone with the basic knowledge of the [JS comparison and logical operators](https://www.w3schools.com/js/js_comparisons.asp) can write these rules)
 * `XPath` and `JSONPath` selectors support (for extracting the `API` response nodes value and using them during the further verification stages)
+* Simple yet powerful `verification rules` specification (anyone with the basic knowledge of the `XPath`, `JSONPath`, [JS comparison and logical operators](https://www.w3schools.com/js/js_comparisons.asp) can write these rules)
 
 As it was mentioned above, the `TRUST` is based on the user defined `verification rules` which are the subject for the further processing by the built-in `JavaScript` engine (the `Nashorn` by default).  
 
