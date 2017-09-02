@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/shimkiv/trust-java.svg?branch=master)](https://travis-ci.org/shimkiv/trust-java)
 [![Coverage Status](https://coveralls.io/repos/github/shimkiv/trust-java/badge.svg?branch=master)](https://coveralls.io/github/shimkiv/trust-java?branch=master)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.shimkiv/trust-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.shimkiv/trust-java)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.shimkiv/trust-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.shimkiv/trust)
 [![Download](https://api.bintray.com/packages/shimkiv/maven/trust-java/images/download.svg)](https://bintray.com/shimkiv/maven/trust-java/_latestVersion)
 [![Gratipay User](https://img.shields.io/gratipay/user/shimkiv.svg)](https://gratipay.com/trust-java/)
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/shimkiv/trust-java/blob/master/LICENSE)
@@ -282,7 +282,7 @@ public class MyVerificationUtils {
 
 ## Usage with Maven
 
-You can import the dependency of the `TRUST` into your `pom.xml` from the [Maven Central](https://maven-badges.herokuapp.com/maven-central/com.shimkiv/trust-java) repository:
+You can import the dependency of the `TRUST` into your `pom.xml` from the [Maven Central](https://maven-badges.herokuapp.com/maven-central/com.shimkiv/trust) repository:
 
 ```xml
 <dependency>
