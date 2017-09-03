@@ -25,7 +25,7 @@ As it was mentioned above, the `TRUST` is based on the user defined `verificatio
 The `verification rules` are represented by the `String` and they consist of the following:
 * `Verification type` (can be any `String` value (please check the list of [predefined](https://github.com/shimkiv/trust-java/blob/master/src/main/java/com/shimkiv/trust/enums/VerificationType.java) types) or `API_RESPONSE`)
 * ':&nbsp;&nbsp;' symbols (note: colon and two spaces (by default), without quotes)
-* `JS` expression(s) which should be evaluated into the `Boolean`'s `TRUE`
+* `JS` expression(s) which should be evaluated into the `Boolean`
     * `JS` expressions should be separated by using the ';&nbsp;&nbsp;' symbols (note: semicolon and two spaces (by default), without quotes)
     * `JS` expressions are able to utilize the [Lodash](https://lodash.com/) `JS` library (by default) extra functionality
     * `JS` expressions should contain placeholders/templates (depending on chosen Verification Type) which will be substituted with the test result values during the expressions evaluation
